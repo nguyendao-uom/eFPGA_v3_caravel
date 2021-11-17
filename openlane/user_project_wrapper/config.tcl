@@ -39,14 +39,15 @@ set ::env(VERILOG_FILES) "\
 
 ## Clock configurations
 set ::env(CLOCK_PORT) "user_clock2"
-set ::env(CLOCK_NET) "mprj.clk"
+set ::env(CLOCK_NET) "inst_eFPGA_top.wb_clk_i"
+#set ::env(CLOCK_NET) "mprj.clk"
 
-set ::env(CLOCK_PERIOD) "10"
+set ::env(CLOCK_PERIOD) "40"
 
 ## Internal Macros
 ### Macro PDN Connections
-set ::env(FP_PDN_MACRO_HOOKS) "\
-	mprj vccd1 vssd1"
+#set ::env(FP_PDN_MACRO_HOOKS) "\
+#	inst_eFPGA_top vccd1 vssd1"
 
 ### Macro Placement
 set ::env(MACRO_PLACEMENT_CFG) $script_dir/macro.cfg
@@ -54,13 +55,21 @@ set ::env(MACRO_PLACEMENT_CFG) $script_dir/macro.cfg
 ### Black-box verilog and views
 set ::env(VERILOG_FILES_BLACKBOX) "\
 	$::env(CARAVEL_ROOT)/verilog/rtl/defines.v \
-	$script_dir/../../verilog/rtl/user_proj_example.v"
+	../verilog/rtl/eFPGA_top.v"
+
+#	$script_dir/../../verilog/rtl/user_proj_example.v"
 
 set ::env(EXTRA_LEFS) "\
-	$script_dir/../../lef/user_proj_example.lef"
+	$script_dir/../../lef/eFPGA_top.lef"
 
 set ::env(EXTRA_GDS_FILES) "\
-	$script_dir/../../gds/user_proj_example.gds"
+	$script_dir/../../gds/eFPGA_top.gds"
+
+#set ::env(EXTRA_LEFS) "\
+#	$script_dir/../../lef/user_proj_example.lef"
+
+#set ::env(EXTRA_GDS_FILES) "\
+#	$script_dir/../../gds/user_proj_example.gds"
 
 set ::env(GLB_RT_MAXLAYER) 5
 
@@ -83,3 +92,16 @@ set ::env(DIODE_INSERTION_STRATEGY) 0
 set ::env(FILL_INSERTION) 0
 set ::env(TAP_DECAP_INSERTION) 0
 set ::env(CLOCK_TREE_SYNTH) 0
+
+set ::env(MAGIC_DRC_USE_GDS) 0
+set ::env(ROUTING_CORES) 12
+set ::env(SYNTH_USE_PG_PINS_DEFINES) "USE_POWER_PINS"
+set ::env(VDD_PIN) "vccd1"
+set ::env(GND_PIN) "vssd1"
+#set ::env(GLB_RT_OBS) "met4 60 60 2860 3460, met5 60 60 2860 3460"
+#set ::env(MACRO_BLOCKAGES_LAYER) "li1 met1 met2 met3 met4 met5"
+#set ::env(FP_PDN_ENABLE_MACROS_GRID) 0
+#set ::env(FP_PDN_ENABLE_GLOBAL_CONNECTIONS) "0"
+#set ::env(PDN_CFG) $::env(DESIGN_DIR)/pdn.tcl
+#set ::env(FP_PDN_MACROS) 1
+
